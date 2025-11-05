@@ -64,7 +64,7 @@ class TrustChainBuilder:
 
         self.max_authority_hints = max_authority_hints
         # dynamically valued
-        self.max_path_len = 0
+        self.max_path_len = 2
         self.final_metadata: dict = {}
 
         self.verified_trust_marks = []

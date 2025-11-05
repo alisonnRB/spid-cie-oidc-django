@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, HttpUrl, constr
+from pydantic import BaseModel, AnyHttpUrl, constr
 
 
 class AuthenticationResponse(BaseModel):
@@ -16,7 +16,7 @@ class AuthenticationResponse(BaseModel):
 
 
 class AuthenticationResponseCie(AuthenticationResponse):
-    iss: HttpUrl
+    iss: AnyHttpUrl
 
     def example():  # pragma: no cover
         return AuthenticationResponse(  # nosec B106
@@ -41,4 +41,4 @@ class AuthenticationErrorResponse(BaseModel):
 
 
 class AuthenticationErrorResponseCie(AuthenticationErrorResponse):
-    iss: HttpUrl
+    iss: AnyHttpUrl

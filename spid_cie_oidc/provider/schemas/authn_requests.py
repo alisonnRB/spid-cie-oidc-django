@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, Field, HttpUrl, conlist, constr, validator
+from pydantic import BaseModel, Field, AnyHttpUrl, conlist, constr, validator
 
 # TODO: Schema of claims is not genrated
 
@@ -123,13 +123,13 @@ CLAIMS_CIE = {"userinfo": UserInfoCie, "id_token": IdToken}
 
 
 class AuthenticationRequest(BaseModel):
-    client_id: HttpUrl
+    client_id: AnyHttpUrl
     response_type: Literal["code"]
     scope: List[str]
     code_challenge: str
     code_challenge_method: Literal["S256"]
     nonce: constr(min_length=32)
-    redirect_uri: HttpUrl
+    redirect_uri: AnyHttpUrl
     claims: Optional[dict]
     state: constr(min_length=32)
     # TODO: to be improved
@@ -137,13 +137,13 @@ class AuthenticationRequest(BaseModel):
 
     # sub claim MUST not be used to prevent that this jwt
     # could be reused as a private_key_jwt
-    # sub: HttpUrl
+    # sub: AnyHttpUrl
 
-    iss: HttpUrl
+    iss: AnyHttpUrl
     iat: int
     exp: Optional[int]
     jti: Optional[str]
-    aud: str | List[HttpUrl]
+    aud: str | List[AnyHttpUrl]
     acr_values: Optional[List[AcrValues]]
     prompt: Optional[Literal["consent", "consent login"]]
 
@@ -204,7 +204,7 @@ class AuthenticationRequestCie(AuthenticationRequest):
 
 
 class AuthenticationRequestDoc(BaseModel):
-    client_id: HttpUrl
+    client_id: AnyHttpUrl
     response_type: Literal["code"]
     scope: List[str]
     code_challenge: str

@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, HttpUrl, constr
+from pydantic import BaseModel, AnyHttpUrl, constr
 
 
 class RevocationRequest(BaseModel):
@@ -8,5 +8,5 @@ class RevocationRequest(BaseModel):
     client_assertion_type: Literal[
         "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
     ]
-    client_id: HttpUrl
+    client_id: AnyHttpUrl
     token: constr(regex=r"^[a-zA-Z\_\-0-9]+\.[a-zA-Z\_\-0-9]+\.[a-zA-Z\_\-0-9]+") # noqa: F722

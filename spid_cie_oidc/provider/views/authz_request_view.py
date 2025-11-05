@@ -18,14 +18,12 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views import View
 from spid_cie_oidc.entity.exceptions import InvalidEntityConfiguration
-from spid_cie_oidc.provider.schemas.authn_requests import AcrValues
 from spid_cie_oidc.provider.forms import AuthLoginForm, AuthzHiddenForm
 from spid_cie_oidc.provider.models import OidcSession
 from spid_cie_oidc.provider.exceptions import AuthzRequestReplay, InvalidRefreshRequestException, ValidationException
 from spid_cie_oidc.provider.settings import (
     OIDCFED_DEFAULT_PROVIDER_PROFILE,
     OIDCFED_PROVIDER_PROFILES,
-    OIDCFED_PROVIDER_PROFILES_DEFAULT_ACR
 )
 from . import OpBase
 logger = logging.getLogger(__name__)
@@ -72,27 +70,64 @@ class AuthzRequestView(OpBase, View):
         return payload
 
     def validate_authz(self, payload: dict):
+        logger.debug(f"=== INÍCIO VALIDAÇÃO AUTHZ ===")
+        logger.debug(f"Payload completo: {json.dumps(payload, indent=2)}")
+        
+        # Log dos valores específicos que serão validados
+        logger.debug(f"client_id: {payload.get('client_id')}")
+        logger.debug(f"redirect_uri: {payload.get('redirect_uri')}")
+        logger.debug(f"scope: {payload.get('scope')}")
+        logger.debug(f"prompt: {payload.get('prompt')}")
+        logger.debug(f"nonce: {payload.get('nonce')}")
+        logger.debug(f"state: {payload.get('state')}")
 
-        must_list = ("scope", "acr_values")
+        must_list = ("scope") 
+        logger.debug(f"Convertendo para lista: {must_list}")
+
         payload = self.string_to_list(payload, must_list)
+        logger.debug(f"Payload após conversão: {json.dumps(payload, indent=2)}")
+
+        logger.debug("Verificando offline_access scope")
+
         if (
             'offline_access' in payload['scope'] and
             'consent' not in payload['prompt']
         ):
+            logger.error("❌ offline_access sem prompt=consent")
             raise InvalidRefreshRequestException(
                 "scope with offline_access without prompt = consent"
             )
-        redirect_uri = payload.get("redirect_uri", "")
-        p = urllib.parse.urlparse(redirect_uri)
-        scheme_fqdn = f"{p.scheme}://{p.hostname}"
-        if not payload.get("client_id", None) in scheme_fqdn:
+        
+        p_redirect = urllib.parse.urlparse(payload.get("redirect_uri", ""))
+        p_client = urllib.parse.urlparse(payload.get("client_id", ""))
+
+        scheme_fqdn_redirect = f"{p_redirect.scheme}://{p_redirect.netloc}"
+        scheme_fqdn_client = f"{p_client.scheme}://{p_client.netloc}"
+
+        logger.debug(f"client_id: {payload.get('client_id')}")
+        logger.debug(f"scheme_fqdn_client: {scheme_fqdn_client}")
+        logger.debug(f"scheme_fqdn_redirect: {scheme_fqdn_redirect}")
+
+        if not scheme_fqdn_client == scheme_fqdn_redirect:
+            logger.error(f"❌ client_id não está em redirect_uri")
+            logger.error(f"   client_id: {payload.get('client_id')}")
+            logger.error(f"   redirect_uri: {payload.get('redirect_uri')}")
             raise ValidationException("client_id not in redirect_uri")
 
-        self.validate_json_schema(
-            payload,
-            "authorization_request",
-            "Authen request object validation failed "
-        )
+        logger.debug("✅ client_id vs redirect_uri - OK")
+        
+        try:
+            self.validate_json_schema(
+                payload,
+                "authorization_request",
+                "Authn request object validation failed"
+            )
+            logger.debug("✅ Schema JSON validado com sucesso")
+        except Exception as e:
+            logger.error(f"❌ Falha na validação do schema JSON: {e}")
+            raise
+
+        logger.debug("=== VALIDAÇÃO AUTHZ CONCLUÍDA COM SUCESSO ===")
 
     def get_url_consent(self, user):
         url = reverse("oidc_provider_consent")
@@ -120,12 +155,11 @@ class AuthzRequestView(OpBase, View):
                 f"error=invalid_request"
             )
             return HttpResponseBadRequest()
-        # yes, again. We MUST.
+        
         tc = None
         try:
             tc = self.validate_authz_request_object(req)
         except InvalidEntityConfiguration as e:
-            # FIXME: to do test
             logger.error(f"Invalid Entity Configuration: {e}")
             return self.redirect_response_data(
                 self.payload["redirect_uri"],
@@ -146,7 +180,6 @@ class AuthzRequestView(OpBase, View):
                     f" authz request object: {e}"
                 ),
                 state = self.payload.get("state", "")
-
             )
         except Exception as e:
             logger.error(
@@ -158,8 +191,8 @@ class AuthzRequestView(OpBase, View):
                 error="invalid_request",
                 error_description=_("Authorization request not valid"),
                 state = self.payload.get("state", "")
-
             )
+        
         try:
             self.validate_authz(self.payload)
         except ValidationException:
@@ -172,30 +205,17 @@ class AuthzRequestView(OpBase, View):
         except InvalidRefreshRequestException as e:
             logger.warning(f"Invalid session: {e}")
             return HttpResponseForbidden()
-        if self.payload.get("acr_values", None):
-            acr_value = AcrValues(self.payload["acr_values"][0])
-        else:
-            # set this as default
-            acr_value = AcrValues.l2
+        
         prompt = self.payload.get("prompt", "login")
+        
         if request.user:
-            if (
-                    request.user.is_authenticated and
-                    acr_value == AcrValues.l1 and
-                    "login" not in prompt
-            ):
+            if request.user.is_authenticated and "login" not in prompt:
                 try:
                     session = self.check_session(request)
-                    if session.acr != AcrValues.l1.value:
-                        logout(request)
-                        return self.get(request)
-                    else:
-                        url = self.get_url_consent(request.user)
-                        return HttpResponseRedirect(url)
+                    url = self.get_url_consent(request.user)
+                    return HttpResponseRedirect(url)
                 except Exception:
-                    logger.warning(
-                        f"Failed SSO check session for {request.user}"
-                    )
+                    logger.warning(f"Failed SSO check session for {request.user}")
                     logout(request)
                     return self.get(request)
 
@@ -207,8 +227,8 @@ class AuthzRequestView(OpBase, View):
             "form": form,
             "redirect_uri": self.payload["redirect_uri"],
             "obj_request": json.dumps(self.payload, indent=2),
-            "acr_value": acr_value.name,
-            "state": self.payload["state"]
+            "state": self.payload["state"],
+            "acr_value": "N/A",
         }
         return render(request, self.template, context)
 
@@ -238,7 +258,6 @@ class AuthzRequestView(OpBase, View):
                 "Authz request object validation failed "
                 f"for {authz_request}: {e} "
             )
-            # we don't have a redirect_uri here
             return HttpResponseForbidden()
 
         # autenticate the user
@@ -272,18 +291,10 @@ class AuthzRequestView(OpBase, View):
                 )
             ).encode()
         ).hexdigest()
+        
         # put the auth_code in the user web session
         request.session["oidc"] = {"auth_code": auth_code}
-
-        # store the User session
-        _provider_profile = getattr(
-            settings,
-            'OIDCFED_DEFAULT_PROVIDER_PROFILE',
-            OIDCFED_DEFAULT_PROVIDER_PROFILE
-        )
-        default_acr = OIDCFED_PROVIDER_PROFILES_DEFAULT_ACR[_provider_profile]
-        self.payload = self.string_to_list(self.payload, ["acr_values"])
-        len_acr = len(self.payload.get("acr_values",[]))
+        
         session = OidcSession.objects.create(
             user=user,
             user_uid=user.username,
@@ -291,12 +302,9 @@ class AuthzRequestView(OpBase, View):
             authz_request=self.payload,
             client_id=self.payload["client_id"],
             auth_code=auth_code,
-            acr=(
-                self.payload["acr_values"][len_acr - 1]
-                if len_acr > 0
-                else default_acr
-            )
+            acr=""
         )
+        
         session.set_sid(request)
         url = self.get_url_consent(user)
         return HttpResponseRedirect(url)
