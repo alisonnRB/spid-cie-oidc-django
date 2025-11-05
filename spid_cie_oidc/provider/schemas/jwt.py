@@ -3,7 +3,7 @@ from typing import List
 
 from django.conf import settings
 from django.utils import timezone
-from pydantic import BaseModel, HttpUrl, validator
+from pydantic import BaseModel, AnyHttpUrl, validator
 from spid_cie_oidc.entity.utils import datetime_from_timestamp
 
 
@@ -20,13 +20,13 @@ except ImportError: # pragma: no cover
 
 
 class JwtStructure(BaseModel):
-    iss: HttpUrl
-    sub: HttpUrl
+    iss: AnyHttpUrl
+    sub: AnyHttpUrl
     iat: int
     exp: int
     jti: str
     # TODO: migliorare: array di url con almeno uno
-    aud: List[HttpUrl]
+    aud: List[AnyHttpUrl]
 
     @validator("exp")
     def validate_exp(cls, exp):
