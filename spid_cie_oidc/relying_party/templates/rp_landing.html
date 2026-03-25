@@ -67,7 +67,7 @@
                             <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=spid&scope=openid offline_access" id="provider-spid-refresh_token">
                                 <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                 {% if attrs.logo_uri %}
-                                <img src="{{ attrs.logo_uri }}.svg" alt="{{ attrs.organization_name }}">
+                                <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
                                 <p>{% trans "INCLUDING REFRESH TOKEN" %}</p>
                                 {% else %}
                                 <img src="{% static 'svg/no_image_available.svg' %}" alt="{{ sub }}">
