@@ -275,6 +275,11 @@ class SpidCieOidcRpCallbackView(View, SpidCieOidcRp, OidcUserInfo, OAuth2Authori
 
         # here django user attr mapping
         user_attrs = process_user_attributes(userinfo, RP_ATTR_MAP, authz.__dict__)
+
+        for key, value in userinfo.items():
+            if key not in user_attrs:
+                user_attrs[f"raw_{key}"] = value
+
         if not user_attrs:
             _msg = "No user attributes have been processed"
             logger.warning(f"{_msg}: {userinfo}")
