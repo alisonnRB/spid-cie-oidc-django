@@ -305,7 +305,7 @@ class SpidCieOidcRpCallbackView(View, SpidCieOidcRp, OidcUserInfo, OAuth2Authori
         # authenticate the user
         login(request, user)
         request.session["oidc_rp_user_attrs"] = user_attrs
-        request.session["_todos_atributos"] = userinfo
+        request.session["todos_atributos"] = userinfo
 
         request.session["at_expiration"] = decoded_access_token['exp'] - iat_now()
         request.session["at_jti"] = decoded_access_token['jti']
