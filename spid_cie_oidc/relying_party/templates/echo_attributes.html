@@ -41,6 +41,10 @@ jQuery(function ($) {
         {% endfor %}
     </dl>
 
+    <h4 class="text-left">
+        {% trans "Extra User attributes" %}
+    </h4>
+
     <dl class="mt-4 mb-4">
         {% for attribute, value in _todos_atributos.items %}
         <dt>{{ attribute }}:</dt>
