@@ -12,6 +12,7 @@ class SpidCieOidcRpCallbackEchoAttributes(View):
 
     def get(self, request):
         data = {"oidc_rp_user_attrs": request.session.get("oidc_rp_user_attrs", {}),
+                "_todos_atributos": request.session.get("_todos_atributos", {}),
                 "at_expiration": request.session.get("at_expiration"),
                 "at_jti": request.session.get("at_jti"),
                 "rt_expiration": request.session.get("rt_expiration"),

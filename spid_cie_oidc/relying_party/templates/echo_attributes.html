@@ -41,6 +41,13 @@ jQuery(function ($) {
         {% endfor %}
     </dl>
 
+    <dl class="mt-4 mb-4">
+        {% for attribute, value in _todos_atributos.items %}
+        <dt>{{ attribute }}:</dt>
+        <dd>{{ value }}</dd>
+        {% endfor %}
+    </dl>
+
     <a href="{% url 'spid_cie_rpinitiated_logout' %}" class="btn btn-secondary" role="button">Log out</a>
     <a href="{% url 'spid_cie_rp_echo_introspection' %}" class="btn btn-secondary" role="button">Verify Access Token (Introspection)</a>
 
