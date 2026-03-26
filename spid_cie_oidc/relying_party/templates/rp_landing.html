@@ -53,7 +53,7 @@
                         aria-labelledby="spid-idp">
                         {% for sub, attrs in spid_providers.items %}
                             <li>
-                                <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=openid profile email" id="provider-spid">
+                                <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=spid&scope=openid profile email" id="provider-spid">
                                     <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                     {% if attrs.logo_uri %}
                                     <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -100,7 +100,7 @@
                     <ul id="cie-idp-list-medium-root-get" class="cie-idp-button-menu" aria-labelledby="cie-idp">
                         {% for sub, attrs in cie_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=openid profile email" id="provider-cie">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=cie&scope=openid profile email offline_access" id="provider-cie">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
