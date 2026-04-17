@@ -100,7 +100,7 @@
                     <ul id="cie-idp-list-medium-root-get" class="cie-idp-button-menu" aria-labelledby="cie-idp">
                         {% for sub, attrs in cie_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=cie&scope=openid profile email offline_access" id="provider-cie">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=cie" id="provider-cie">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -111,7 +111,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=cie&scope=openid profile email offline_access" id="provider-cie-refresh_token">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=cie&scope=openid offline_access" id="provider-cie-refresh_token">
                                         <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
