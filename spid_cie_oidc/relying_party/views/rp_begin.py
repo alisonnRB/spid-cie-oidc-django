@@ -142,7 +142,7 @@ class SpidCieOidcRpBeginView(SpidCieOidcRp, View):
         _timestamp_now = int(timezone.localtime().timestamp())
         authz_data = dict(
             iss=client_conf["client_id"],
-            scope= [request.GET.get("scope", None)] or ["openid"],
+            scope= [request.GET.get("scope", None) or "openid"],
             redirect_uri=redirect_uri,
             response_type=client_conf["response_types"][0],
             nonce=random_string(32),
