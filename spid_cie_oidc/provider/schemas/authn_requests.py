@@ -183,7 +183,7 @@ class AuthenticationRequestSpid(AuthenticationRequest):
             nonce= "12345678123456781234567812345678inpiu",
             prompt= "consent",
             redirect_uri= "https://rp.cie.it/callback1/",
-            acr_values= ["https://www.spid.gov.it/SpidL2", "https://www.spid.gov.it/SpidL1"]
+            acr_values= ["https://www.spid.gov.it/SpidL2", "https://www.spid.gov.it/SpidL1"],
             claims= {},
             state= "fyZiOL9Lf2CeKuNT2JzxiLRDink0uPcd",
             ui_locales= ["codice1", "codice2", "codice3"],
