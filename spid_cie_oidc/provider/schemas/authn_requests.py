@@ -125,7 +125,7 @@ CLAIMS_CIE = {"userinfo": UserInfoCie, "id_token": IdToken}
 class AuthenticationRequest(BaseModel):
     client_id: AnyHttpUrl
     response_type: Literal["code"]
-    scope: List[str]
+    scope: str
     code_challenge: str
     code_challenge_method: Literal["S256"]
     nonce: constr(min_length=32)
@@ -177,13 +177,13 @@ class AuthenticationRequestSpid(AuthenticationRequest):
         return AuthenticationRequestSpid(  # nosec B106
             client_id= "https://rp.cie.it/callback1/",
             response_type= "code",
-            scope= ["openid", "offline_access"],
+            scope= "openid offline_access",
             code_challenge= "codeChallenge",
             code_challenge_method= "S256",
             nonce= "12345678123456781234567812345678inpiu",
             prompt= "consent",
             redirect_uri= "https://rp.cie.it/callback1/",
-            acr_values= ["https://www.spid.gov.it/SpidL2", "https://www.spid.gov.it/SpidL1"],
+            acr_values= ["https://www.spid.gov.it/SpidL2", "https://www.spid.gov.it/SpidL1"]
             claims= {},
             state= "fyZiOL9Lf2CeKuNT2JzxiLRDink0uPcd",
             ui_locales= ["codice1", "codice2", "codice3"],
@@ -215,7 +215,7 @@ class AuthenticationRequestDoc(BaseModel):
         return AuthenticationRequestDoc(  # nosec B106
             client_id= "https://rp.cie.it/callback1/",
             response_type= "code",
-            scope= ["openid", "offline_access"],
+            scope= "openid offline_access",
             code_challenge= "codeChallenge",
             code_challenge_method= "S256",
             request= "eyJhbGciOiJSUzI1NiIsImtpZCI6ImsyYmRjIn0.ew0KICJpc3MiOiAiczZCaGRSa3F0MyIsDQogImF1ZCI6ICJodHRwczovL3NlcnZlci5leGFtcGxlLmNvbSIsDQogInJlc3BvbnNlX3R5cGUiOiAiY29kZSBpZF90b2tlbiIsDQogImNsaWVudF9pZCI6ICJzNkJoZFJrcXQzIiwNCiAicmVkaXJlY3RfdXJpIjogImh0dHBzOi8vY2xpZW50LmV4YW1wbGUub3JnL2NiIiwNCiAic2NvcGUiOiAib3BlbmlkIiwNCiAic3RhdGUiOiAiYWYwaWZqc2xka2oiLA0KICJub25jZSI6ICJuLTBTNl9XekEyTWoiLA0KICJtYXhfYWdlIjogODY0MDAsDQogImNsYWltcyI6IA0KICB7DQogICAidXNlcmluZm8iOiANCiAgICB7DQogICAgICJnaXZlbl9uYW1lIjogeyJlc3NlbnRpYWwiOiB0cnVlfSwNCiAgICAgI.qq",
