@@ -144,7 +144,7 @@ class AuthenticationRequest(BaseModel):
     exp: Optional[int]
     jti: Optional[str]
     aud: str | List[AnyHttpUrl]
-    acr_values: Optional[List[AcrValues]]
+    acr_values: Optional[Union[str, List[str], List[AcrValues]]] = None
     prompt: Optional[Literal["consent", "consent login"]]
 
     @validator("claims")
@@ -168,7 +168,7 @@ class AuthenticationRequest(BaseModel):
 
 
 class AuthenticationRequestSpid(AuthenticationRequest):
-    scope: List[ScopeSpid]
+    scope: Union[str, List[ScopeSpid], List[str]]
 
     def get_claims() -> dict:
         return CLAIMS_SPID
@@ -197,7 +197,7 @@ class AuthenticationRequestSpid(AuthenticationRequest):
 
 
 class AuthenticationRequestCie(AuthenticationRequest):
-    scope: List[ScopeCie]
+    scope: Union[str, List[ScopeSpid], List[str]]
 
     def get_claims() -> dict:
         return CLAIMS_CIE
@@ -206,7 +206,7 @@ class AuthenticationRequestCie(AuthenticationRequest):
 class AuthenticationRequestDoc(BaseModel):
     client_id: AnyHttpUrl
     response_type: Literal["code"]
-    scope: List[str]
+    scope: Union[str, List[ScopeSpid], List[str]]
     code_challenge: str
     code_challenge_method: Literal["S256"]
     request: constr(regex=r"^[a-zA-Z\_\-0-9]+\.[a-zA-Z\_\-0-9]+\.[a-zA-Z\_\-0-9]+") # noqa: F722
