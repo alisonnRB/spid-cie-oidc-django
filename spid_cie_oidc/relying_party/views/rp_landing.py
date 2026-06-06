@@ -19,10 +19,16 @@ def oidc_rp_landing(request):
         k: {"sub": v} for k, v in
         settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}).items()
     }
+    keycloak_providers = {
+        k: {"sub": v} for k, v in
+        settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}).items()
+    }
+
 
     providers = deepcopy(spid_providers)
     providers.update(cie_providers)
-    subs = list(spid_providers.keys()) + list(cie_providers.keys())
+    providers.update(keycloak_providers)
+    subs = list(spid_providers.keys()) + list(cie_providers.keys()) + list(keycloak_providers.keys())
 
     tcs = []
     for sub in subs:
@@ -42,6 +48,8 @@ def oidc_rp_landing(request):
             target = spid_providers
         elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}):
             target = cie_providers
+        elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}):
+            target = cie_providers
         else:
             continue
 
@@ -55,6 +63,7 @@ def oidc_rp_landing(request):
     random.shuffle(s_spid_providers)
     content = {
         "spid_providers": dict(s_spid_providers),
-        "cie_providers" : cie_providers
+        "cie_providers" : cie_providers,
+        "keycloak_providers" : keycloak_providers
     }
     return render(request, "rp_landing.html", content)

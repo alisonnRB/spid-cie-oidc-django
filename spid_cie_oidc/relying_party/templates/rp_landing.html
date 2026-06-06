@@ -43,7 +43,7 @@
                     <span class="italia-it-button-icon"><img
                             src="{% static 'svg/spid-ico-circle-bb.svg' %}"
                             alt=""></span>
-                    <span class="italia-it-button-text">{% trans "Entra con OIDC" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entrar com WAYF" %}</span>
                 </a>
                 <div id="spid-idp-button-medium-get"
                     class="spid-idp-button spid-idp-button-tip spid-idp-button-relative"
@@ -91,7 +91,7 @@
                             src="{% static 'svg/cie-ico-circle-bb.svg' %}"
                             alt="">
                     </span>
-                    <span class="italia-it-button-text">{% trans "Entra con OIDFED" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entrar com OIDFED" %}</span>
                 </a>
                 <div id="cie-idp-button-medium-get"
                     class="cie-idp-button cie-idp-button-tip cie-idp-button-relative"
@@ -119,6 +119,52 @@
                                         {% else %}
                                         <img src="{% static 'svg/no_image_available.svg' %}" alt="{{ sub }}">
 
+                                        {% endif %}
+                                    </a>
+                                </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </span>
+
+            <span 
+                class="badge square-corners mb-3 mr-2 ml-0 pr-10 p-2 mw-100"
+                style="font-size: 100%">
+
+                <a href="#" class="italia-it-button italia-it-button-size-m button-krp"
+                    krp-idp-button="#krp-idp-button-medium-get">
+                    <span class="italia-it-button-icon"><img
+                            src="{% static 'svg/cie-ico-circle-bb.svg' %}"
+                            alt="">
+                    </span>
+                    <span class="italia-it-button-text">{% trans "Entrar com KRP" %}</span>
+                </a>
+                <div id="krp-idp-button-medium-get"
+                    class="krp-idp-button krp-idp-button-tip krp-idp-button-relative"
+                    style="display: none; left: 56.5px; top: 46.05px;">
+
+                    <ul id="krp-idp-list-medium-root-get" class="krp-idp-button-menu" aria-labelledby="krp-idp">
+                        {% for sub, attrs in krp_providers.items %}
+                                <li>
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp" id="provider-krp">
+                                        <span class="spid-sr-only">{{ attrs.organization_name }}</span>
+                                        {% if attrs.logo_uri %}
+                                        <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
+                                        {% else %}
+                                        <img src="{% static 'svg/no_image_available.svg' %}" alt="{{ sub }}">
+                                        <p>{{ sub }}</p>
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid offline_access" id="provider-krp-refresh_token">
+                                        <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
+                                        {% if attrs.logo_uri %}
+                                        <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
+                                        <p>{% trans "INCLUDING REFRESH TOKEN" %}</p>
+                                        {% else %}
+                                        <img src="{% static 'svg/no_image_available.svg' %}" alt="{{ sub }}">
+                                        <p>{{ sub }}</p>
                                         {% endif %}
                                     </a>
                                 </li>
