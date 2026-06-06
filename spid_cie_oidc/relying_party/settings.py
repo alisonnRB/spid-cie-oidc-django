@@ -106,6 +106,23 @@ CIE_REQUESTED_CLAIMS = getattr(
     },
 )
 
+KPR_REQUESTED_CLAIMS = getattr(
+    settings,
+    "RP_REQUIRED_CLAIMS",
+    {
+        "id_token": {
+            "given_name": {"essential": True},
+            "email": {"essential": True},
+        },
+        "userinfo": {
+            "given_name": None,
+            "family_name": None,
+            "email": None,
+            "https://attributes.eid.gov.it/fiscal_number": None,
+        },
+    },
+)
+
 RP_PKCE_CONF = getattr(
     settings,
     "RP_PKCE_CONF",
@@ -118,6 +135,7 @@ RP_PKCE_CONF = getattr(
 RP_REQUEST_CLAIM_BY_PROFILE = {
     "spid": SPID_REQUESTED_CLAIMS,
     "cie": CIE_REQUESTED_CLAIMS,
+    "kpr": KPR_REQUESTED_CLAIMS,
 }
 
 RP_DEFAULT_PROVIDER_PROFILES = getattr(settings, "RP_DEFAULT_PROVIDER_PROFILES", "spid")
