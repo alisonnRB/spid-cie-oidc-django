@@ -79,3 +79,58 @@ $(document).ready(function(){
     }
     rootList.append(lnkList);
 });
+$(document).ready(function(){
+    var rootList = $("#krp-idp-list-medium-root-get");
+    if (rootList.length) {
+        var idpList = rootList.children(".krp-idp-button-link");
+        var lnkList = rootList.children(".krp-idp-support-link");
+        while (idpList.length) {
+            rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
+        }
+        rootList.append(lnkList);
+    }
+});
+$(document).ready(function(){
+    var rootList = $("#krp-idp-list-small-root-get");
+    if (rootList.length) {
+        var idpList = rootList.children(".krp-idp-button-link");
+        var lnkList = rootList.children(".krp-idp-support-link");
+        while (idpList.length) {
+            rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
+        }
+        rootList.append(lnkList);
+    }
+});
+$(document).ready(function(){
+    var rootList = $("#krp-idp-list-large-root-get");
+    if (rootList.length) {
+        var idpList = rootList.children(".krp-idp-button-link");
+        var lnkList = rootList.children(".krp-idp-support-link");
+        while (idpList.length) {
+            rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
+        }
+        rootList.append(lnkList);
+    }
+});
+$(document).ready(function(){
+    var rootList = $("#krp-idp-list-xlarge-root-get");
+    if (rootList.length) {
+        var idpList = rootList.children(".krp-idp-button-link");
+        var lnkList = rootList.children(".krp-idp-support-link");
+        while (idpList.length) {
+            rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
+        }
+        rootList.append(lnkList);
+    }
+});
+$(document).ready(function(){
+    var rootList = $("#krp-idp-list-medium-root-post");
+    if (rootList.length) {
+        var idpList = rootList.children(".krp-idp-button-link");
+        var lnkList = rootList.children(".krp-idp-support-link");
+        while (idpList.length) {
+            rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
+        }
+        rootList.append(lnkList);
+    }
+});

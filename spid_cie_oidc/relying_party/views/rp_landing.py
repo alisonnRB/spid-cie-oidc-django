@@ -2,7 +2,6 @@ from copy import deepcopy
 import logging
 import random
 
-
 from django.conf import settings
 from django.shortcuts import render
 from spid_cie_oidc.entity.trust_chain_operations import get_or_create_trust_chain
@@ -19,16 +18,16 @@ def oidc_rp_landing(request):
         k: {"sub": v} for k, v in
         settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}).items()
     }
-    keycloak_providers = {
+    krp_providers = {
         k: {"sub": v} for k, v in
-        settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}).items()
+        settings.OIDCFED_IDENTITY_PROVIDERS.get("krp", {}).items()
     }
-
 
     providers = deepcopy(spid_providers)
     providers.update(cie_providers)
-    providers.update(keycloak_providers)
-    subs = list(spid_providers.keys()) + list(cie_providers.keys()) + list(keycloak_providers.keys())
+    providers.update(krp_providers)
+
+    subs = list(spid_providers.keys()) + list(cie_providers.keys()) + list(krp_providers.keys())
 
     tcs = []
     for sub in subs:
@@ -48,8 +47,8 @@ def oidc_rp_landing(request):
             target = spid_providers
         elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}):
             target = cie_providers
-        elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}):
-            target = cie_providers
+        elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("krp", {}):
+            target = krp_providers
         else:
             continue
 
@@ -61,9 +60,13 @@ def oidc_rp_landing(request):
 
     s_spid_providers = list(spid_providers.items())
     random.shuffle(s_spid_providers)
+
+    s_krp_providers = list(krp_providers.items())
+    random.shuffle(s_krp_providers)
+    
     content = {
         "spid_providers": dict(s_spid_providers),
-        "cie_providers" : cie_providers,
-        "keycloak_providers" : keycloak_providers
+        "cie_providers": cie_providers,
+        "krp_providers": dict(s_krp_providers)
     }
     return render(request, "rp_landing.html", content)

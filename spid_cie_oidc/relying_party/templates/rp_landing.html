@@ -43,7 +43,7 @@
                     <span class="italia-it-button-icon"><img
                             src="{% static 'svg/spid-ico-circle-bb.svg' %}"
                             alt=""></span>
-                    <span class="italia-it-button-text">{% trans "Entrar com WAYF" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entra con WAYF" %}</span>
                 </a>
                 <div id="spid-idp-button-medium-get"
                     class="spid-idp-button spid-idp-button-tip spid-idp-button-relative"
@@ -91,7 +91,7 @@
                             src="{% static 'svg/cie-ico-circle-bb.svg' %}"
                             alt="">
                     </span>
-                    <span class="italia-it-button-text">{% trans "Entrar com OIDFED" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entra con OIDFED" %}</span>
                 </a>
                 <div id="cie-idp-button-medium-get"
                     class="cie-idp-button cie-idp-button-tip cie-idp-button-relative"
@@ -137,7 +137,7 @@
                             src="{% static 'svg/cie-ico-circle-bb.svg' %}"
                             alt="">
                     </span>
-                    <span class="italia-it-button-text">{% trans "Entrar com KRP" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entra con KRP" %}</span>
                 </a>
                 <div id="krp-idp-button-medium-get"
                     class="krp-idp-button krp-idp-button-tip krp-idp-button-relative"
@@ -146,7 +146,7 @@
                     <ul id="krp-idp-list-medium-root-get" class="krp-idp-button-menu" aria-labelledby="krp-idp">
                         {% for sub, attrs in krp_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp" id="provider-krp">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid profile email openid&idp_hint={{sub}}" id="provider-krp">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -157,7 +157,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid offline_access" id="provider-krp-refresh_token">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=scope=openid profile email offline_access" id="provider-krp-refresh_token">
                                         <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
