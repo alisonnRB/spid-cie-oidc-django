@@ -131,6 +131,11 @@ class SpidCieOidcRpBeginView(SpidCieOidcRp, View):
 
         authz_endpoint = provider_metadata["authorization_endpoint"]
 
+        idp_hint = request.GET.get("idp_hint", "")
+        if idp_hint:
+            separator = "&" if "?" in authz_endpoint else "?"
+            authz_endpoint = f"{authz_endpoint}{separator}idp_hint={idp_hint}"
+
         redirect_uri = request.GET.get("redirect_uri", client_conf["redirect_uris"][0])
         if redirect_uri not in client_conf["redirect_uris"]:
             logger.warning(
