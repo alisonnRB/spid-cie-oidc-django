@@ -63,10 +63,11 @@ def oidc_rp_landing(request):
 
     s_krp_providers = list(krp_providers.items())
     random.shuffle(s_krp_providers)
-    
+
     content = {
         "spid_providers": dict(s_spid_providers),
         "cie_providers": cie_providers,
-        "krp_providers": dict(s_krp_providers)
+        "krp_providers": dict(s_krp_providers),
+        "KRP_IDP_HINT": getattr(settings, 'KRP_IDP_HINT', None),
     }
     return render(request, "rp_landing.html", content)
