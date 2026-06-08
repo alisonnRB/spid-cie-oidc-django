@@ -146,7 +146,7 @@
                     <ul id="krp-idp-list-medium-root-get" class="krp-idp-button-menu" aria-labelledby="krp-idp">
                         {% for sub, attrs in krp_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid profile email openid&idp_hint={{sub}}" id="provider-krp">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid profile email openid&idp_hint={{KRP_IDP_HINT}}" id="provider-krp">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -157,7 +157,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=scope=openid profile email offline_access" id="provider-krp-refresh_token">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=krp&scope=openid profile email offline_access&idp_hint={{KRP_IDP_HINT}}" id="provider-krp-refresh_token">
                                         <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
