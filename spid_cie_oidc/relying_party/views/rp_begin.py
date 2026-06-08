@@ -162,6 +162,9 @@ class SpidCieOidcRpBeginView(SpidCieOidcRp, View):
             claims=RP_REQUEST_CLAIM_BY_PROFILE[_profile],
         )
 
+        if idp_hint:
+            authz_data["idp_hint"] = idp_hint
+
         _prompt = request.GET.get("prompt", "consent login")
 
         # if "offline_access" in authz_data["scope"]:
@@ -200,16 +203,21 @@ class SpidCieOidcRpBeginView(SpidCieOidcRp, View):
 
         request_obj = create_jws(authz_data_obj, jwk_core_sig)
         authz_data["request"] = request_obj
-        uri_path = http_dict_to_redirect_uri_path(
-            {
-                "client_id": authz_data["client_id"],
-                "scope" : authz_data["scope"],
-                "response_type": authz_data["response_type"],
-                "code_challenge": authz_data["code_challenge"],
-                "code_challenge_method": authz_data["code_challenge_method"],
-                "request": authz_data["request"]
-            }
-        )
+        redirect_params = {
+            "client_id": authz_data["client_id"],
+            "scope" : authz_data["scope"],
+            "response_type": authz_data["response_type"],
+            "code_challenge": authz_data["code_challenge"],
+            "code_challenge_method": authz_data["code_challenge_method"],
+            "request": authz_data["request"]
+        }
+
+        # ADICIONA IDP_HINT NOS PARÂMETROS DE REDIRECIONAMENTO
+        if idp_hint:
+            redirect_params["idp_hint"] = idp_hint
+
+        uri_path = http_dict_to_redirect_uri_path(redirect_params)
+
         if "?" in authz_endpoint:
             qstring = "&"
         else:
