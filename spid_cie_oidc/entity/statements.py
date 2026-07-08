@@ -37,11 +37,28 @@ def get_federation_jwks(jwt_payload: dict, httpc_params: dict = {}):
 def get_http_url(urls: list, httpc_params: dict = {}) -> list:
     if getattr(settings, "HTTP_CLIENT_SYNC", False):
         responses = []
-        for i in urls:
-            res = requests.get(i, **httpc_params) # nosec - B113
-            responses.append(res.content.decode())
+        for url in urls:
+            try:
+                res = requests.get(url, **httpc_params)  # nosec - B113
+                responses.append(res.content.decode())
+            except Exception as e:
+                logger.warning(f"Failed to fetch {url}: {e}")
+                continue
     else:
-        responses = asyncio.run(http_get(urls, httpc_params)) # pragma: no cover
+        # Tenta cada URL individualmente para isolar falhas
+        responses = []
+        for url in urls:
+            try:
+                result = asyncio.run(http_get([url], httpc_params))
+                if result:
+                    responses.extend(result)
+            except Exception as e:
+                logger.warning(f"Failed to fetch {url}: {e}")
+                continue
+
+    if not responses:
+        raise Exception(f"Failed to fetch any URL from: {urls}")
+
     return responses
 
 
