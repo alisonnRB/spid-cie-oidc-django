@@ -35,6 +35,15 @@ def get_federation_jwks(jwt_payload: dict, httpc_params: dict = {}):
 
 
 def get_http_url(urls: list, httpc_params: dict = {}) -> list:
+    """
+    Fetches URLs with fault tolerance.
+    Returns empty list if no URLs provided (not an error).
+    """
+    # Se não há URLs para buscar, retorna lista vazia silenciosamente
+    if not urls:
+        logger.debug("No URLs to fetch, returning empty list")
+        return []
+
     if getattr(settings, "HTTP_CLIENT_SYNC", False):
         responses = []
         for url in urls:
@@ -60,7 +69,6 @@ def get_http_url(urls: list, httpc_params: dict = {}) -> list:
         raise Exception(f"Failed to fetch any URL from: {urls}")
 
     return responses
-
 
 def get_entity_statements(urls: list, httpc_params: dict = {}) -> list:
     """
