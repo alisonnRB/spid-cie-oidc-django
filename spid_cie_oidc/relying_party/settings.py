@@ -106,7 +106,7 @@ CIE_REQUESTED_CLAIMS = getattr(
     },
 )
 
-KRP_REQUESTED_CLAIMS = getattr(
+KPR_REQUESTED_CLAIMS = getattr(
     settings,
     "RP_REQUIRED_CLAIMS",
     {
@@ -135,7 +135,7 @@ RP_PKCE_CONF = getattr(
 RP_REQUEST_CLAIM_BY_PROFILE = {
     "spid": SPID_REQUESTED_CLAIMS,
     "cie": CIE_REQUESTED_CLAIMS,
-    "krp": KRP_REQUESTED_CLAIMS,
+    "kpr": KPR_REQUESTED_CLAIMS,
 }
 
 RP_DEFAULT_PROVIDER_PROFILES = getattr(settings, "RP_DEFAULT_PROVIDER_PROFILES", "spid")

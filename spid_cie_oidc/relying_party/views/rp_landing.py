@@ -18,16 +18,16 @@ def oidc_rp_landing(request):
         k: {"sub": v} for k, v in
         settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}).items()
     }
-    krp_providers = {
+    kpr_providers = {
         k: {"sub": v} for k, v in
-        settings.OIDCFED_IDENTITY_PROVIDERS.get("krp", {}).items()
+        settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}).items()
     }
 
     providers = deepcopy(spid_providers)
     providers.update(cie_providers)
-    providers.update(krp_providers)
+    providers.update(kpr_providers)
 
-    subs = list(spid_providers.keys()) + list(cie_providers.keys()) + list(krp_providers.keys())
+    subs = list(spid_providers.keys()) + list(cie_providers.keys()) + list(kpr_providers.keys())
 
     tcs = []
     for sub in subs:
@@ -47,8 +47,8 @@ def oidc_rp_landing(request):
             target = spid_providers
         elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("cie", {}):
             target = cie_providers
-        elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("krp", {}):
-            target = krp_providers
+        elif i.sub in settings.OIDCFED_IDENTITY_PROVIDERS.get("kpr", {}):
+            target = kpr_providers
         else:
             continue
 
@@ -61,13 +61,13 @@ def oidc_rp_landing(request):
     s_spid_providers = list(spid_providers.items())
     random.shuffle(s_spid_providers)
 
-    s_krp_providers = list(krp_providers.items())
-    random.shuffle(s_krp_providers)
+    s_kpr_providers = list(kpr_providers.items())
+    random.shuffle(s_kpr_providers)
 
     content = {
         "spid_providers": dict(s_spid_providers),
         "cie_providers": cie_providers,
-        "krp_providers": dict(s_krp_providers),
-        "KRP_IDP_HINT": getattr(settings, 'KRP_IDP_HINT', None),
+        "kpr_providers": dict(s_kpr_providers),
+        "KPR_IDP_HINT": getattr(settings, 'KPR_IDP_HINT', None),
     }
     return render(request, "rp_landing.html", content)

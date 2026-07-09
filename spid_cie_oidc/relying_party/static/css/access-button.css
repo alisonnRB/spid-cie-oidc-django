@@ -406,35 +406,35 @@ svg {
     width: 30%;
 }
 
-/* Estilos para o botão KRP */
-.button-krp {
+/* Estilos para o botão kpr */
+.button-kpr {
     background-color: #2c3e50;
     color: #FFF
 }
 
-.button-krp svg {
+.button-kpr svg {
     fill: #FFF
 }
 
-.button-krp:hover {
+.button-kpr:hover {
     background-color: #1a252f;
     color: #FFF
 }
 
-.button-krp:active {
+.button-kpr:active {
     background-color: #7f8c8d;
     color: #2c3e50
 }
 
-/* Estilos para o dropdown KRP */
-.krp-idp-button {
+/* Estilos para o dropdown kpr */
+.kpr-idp-button {
     position: absolute;
     z-index: 1039;
     display: none
 }
 
-.krp-idp-button .krp-idp-button-menu,
-.krp-idp-button .krp-idp-button-panel {
+.kpr-idp-button .kpr-idp-button-menu,
+.kpr-idp-button .kpr-idp-button-panel {
     list-style: none;
     background: white;
     border: solid 1px #ddd;
@@ -444,32 +444,32 @@ svg {
     margin: 0
 }
 
-#krp-idp-button-small-get,
-#krp-idp-button-medium-get,
-#krp-idp-button-small-post,
-#krp-idp-button-medium-post {
+#kpr-idp-button-small-get,
+#kpr-idp-button-medium-get,
+#kpr-idp-button-small-post,
+#kpr-idp-button-medium-post {
     width: 230px
 }
 
-#krp-idp-button-large-get,
-#krp-idp-button-large-post {
+#kpr-idp-button-large-get,
+#kpr-idp-button-large-post {
     width: 270px
 }
 
-#krp-idp-button-xlarge-get,
-#krp-idp-button-xlarge-post {
+#kpr-idp-button-xlarge-get,
+#kpr-idp-button-xlarge-post {
     width: 330px
 }
 
-.krp-idp-button .krp-idp-button-panel {
+.kpr-idp-button .kpr-idp-button-panel {
     padding: 10px
 }
 
-.krp-idp-button.krp-idp-button-tip {
+.kpr-idp-button.kpr-idp-button-tip {
     margin-top: 8px
 }
 
-.krp-idp-button.krp-idp-button-tip:before {
+.kpr-idp-button.kpr-idp-button-tip:before {
     position: absolute;
     top: -6px;
     left: 9px;
@@ -480,7 +480,7 @@ svg {
     display: inline-block
 }
 
-.krp-idp-button.krp-idp-button-tip:after {
+.kpr-idp-button.kpr-idp-button-tip:after {
     position: absolute;
     top: -5px;
     left: 10px;
@@ -491,31 +491,31 @@ svg {
     display: inline-block
 }
 
-.krp-idp-button.krp-idp-button-tip.krp-idp-button-anchor-right:before {
+.kpr-idp-button.kpr-idp-button-tip.kpr-idp-button-anchor-right:before {
     left: auto;
     right: 9px
 }
 
-.krp-idp-button.krp-idp-button-tip.krp-idp-button-anchor-right:after {
+.kpr-idp-button.kpr-idp-button-tip.kpr-idp-button-anchor-right:after {
     left: auto;
     right: 10px
 }
 
-.krp-idp-button.krp-idp-button-scroll .krp-idp-button-menu,
-.krp-idp-button.krp-idp-button-scroll .krp-idp-button-panel {
+.kpr-idp-button.kpr-idp-button-scroll .kpr-idp-button-menu,
+.kpr-idp-button.kpr-idp-button-scroll .kpr-idp-button-panel {
     max-height: 180px;
     overflow: auto
 }
 
-.krp-idp-button .krp-idp-button-menu li {
+.kpr-idp-button .kpr-idp-button-menu li {
     list-style: none;
     padding: 0 0;
     margin: 0;
     line-height: 18px
 }
 
-.krp-idp-button .krp-idp-button-menu li > a,
-.krp-idp-button .krp-idp-button-menu label {
+.kpr-idp-button .kpr-idp-button-menu li > a,
+.kpr-idp-button .kpr-idp-button-menu label {
     display: block;
     font-family: "Titillium Web", HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
     font-weight: 600;
@@ -528,20 +528,20 @@ svg {
     border-bottom: 1px solid #ddd;
 }
 
-.krp-idp-button .krp-idp-button-menu li > a:hover,
-.krp-idp-button .krp-idp-button-menu label:hover {
+.kpr-idp-button .kpr-idp-button-menu li > a:hover,
+.kpr-idp-button .kpr-idp-button-menu label:hover {
     color: #036;
     cursor: pointer;
     background-color: #F0F0F0
 }
 
-.krp-idp-button .krp-idp-button-menu li > a img {
+.kpr-idp-button .kpr-idp-button-menu li > a img {
     height: 35px;
     padding-bottom: 5px;
     border: 0;
     width: 30%;
 }
 
-.button-krp {
+.button-kpr {
     background-color: #27ae60;
 }

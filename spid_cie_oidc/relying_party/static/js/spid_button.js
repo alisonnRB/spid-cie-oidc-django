@@ -80,10 +80,10 @@ $(document).ready(function(){
     rootList.append(lnkList);
 });
 $(document).ready(function(){
-    var rootList = $("#krp-idp-list-medium-root-get");
+    var rootList = $("#kpr-idp-list-medium-root-get");
     if (rootList.length) {
-        var idpList = rootList.children(".krp-idp-button-link");
-        var lnkList = rootList.children(".krp-idp-support-link");
+        var idpList = rootList.children(".kpr-idp-button-link");
+        var lnkList = rootList.children(".kpr-idp-support-link");
         while (idpList.length) {
             rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
         }
@@ -91,10 +91,10 @@ $(document).ready(function(){
     }
 });
 $(document).ready(function(){
-    var rootList = $("#krp-idp-list-small-root-get");
+    var rootList = $("#kpr-idp-list-small-root-get");
     if (rootList.length) {
-        var idpList = rootList.children(".krp-idp-button-link");
-        var lnkList = rootList.children(".krp-idp-support-link");
+        var idpList = rootList.children(".kpr-idp-button-link");
+        var lnkList = rootList.children(".kpr-idp-support-link");
         while (idpList.length) {
             rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
         }
@@ -102,10 +102,10 @@ $(document).ready(function(){
     }
 });
 $(document).ready(function(){
-    var rootList = $("#krp-idp-list-large-root-get");
+    var rootList = $("#kpr-idp-list-large-root-get");
     if (rootList.length) {
-        var idpList = rootList.children(".krp-idp-button-link");
-        var lnkList = rootList.children(".krp-idp-support-link");
+        var idpList = rootList.children(".kpr-idp-button-link");
+        var lnkList = rootList.children(".kpr-idp-support-link");
         while (idpList.length) {
             rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
         }
@@ -113,10 +113,10 @@ $(document).ready(function(){
     }
 });
 $(document).ready(function(){
-    var rootList = $("#krp-idp-list-xlarge-root-get");
+    var rootList = $("#kpr-idp-list-xlarge-root-get");
     if (rootList.length) {
-        var idpList = rootList.children(".krp-idp-button-link");
-        var lnkList = rootList.children(".krp-idp-support-link");
+        var idpList = rootList.children(".kpr-idp-button-link");
+        var lnkList = rootList.children(".kpr-idp-support-link");
         while (idpList.length) {
             rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
         }
@@ -124,10 +124,10 @@ $(document).ready(function(){
     }
 });
 $(document).ready(function(){
-    var rootList = $("#krp-idp-list-medium-root-post");
+    var rootList = $("#kpr-idp-list-medium-root-post");
     if (rootList.length) {
-        var idpList = rootList.children(".krp-idp-button-link");
-        var lnkList = rootList.children(".krp-idp-support-link");
+        var idpList = rootList.children(".kpr-idp-button-link");
+        var lnkList = rootList.children(".kpr-idp-support-link");
         while (idpList.length) {
             rootList.append(idpList.splice(Math.floor(Math.random() * idpList.length), 1)[0]);
         }
