@@ -146,7 +146,7 @@
                     <ul id="kpr-idp-list-medium-root-get" class="kpr-idp-button-menu" aria-labelledby="kpr-idp">
                         {% for sub, attrs in kpr_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email openid&idp_hint={{kpr_IDP_HINT}}" id="provider-kpr">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email openid&idp_hint={{KPR_IDP_HINT}}" id="provider-kpr">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -157,7 +157,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email offline_access&idp_hint={{kpr_IDP_HINT}}" id="provider-kpr-refresh_token">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email offline_access&idp_hint={{KPR_IDP_HINT}}" id="provider-kpr-refresh_token">
                                         <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
