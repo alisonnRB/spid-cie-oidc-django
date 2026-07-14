@@ -68,6 +68,6 @@ def oidc_rp_landing(request):
         "spid_providers": dict(s_spid_providers),
         "cie_providers": cie_providers,
         "direct_providers": dict(s_direct_providers),
-        "direct_IDP_HINT": getattr(settings, 'direct_IDP_HINT', None),
+        "DIRECT_IDP_HINT": getattr(settings, 'DIRECT_IDP_HINT', None),
     }
     return render(request, "rp_landing.html", content)
