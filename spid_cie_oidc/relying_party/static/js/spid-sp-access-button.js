@@ -78,41 +78,41 @@ jQuery && function (t) {
 }(jQuery)
 jQuery && function (t) {
     function i(i, n) {
-        var d = i ? t(this) : n, o = t(d.attr("kpr-idp-button")), r = d.hasClass("kpr-idp-button-open")
+        var d = i ? t(this) : n, o = t(d.attr("direct-idp-button")), r = d.hasClass("direct-idp-button-open")
         if (i) {
-            if (t(i.target).hasClass("kpr-idp-button-ignore")) return
+            if (t(i.target).hasClass("direct-idp-button-ignore")) return
             i.preventDefault(), i.stopPropagation()
-        } else if (d !== n.target && t(n.target).hasClass("kpr-idp-button-ignore")) return
-        s(), r || d.hasClass("kpr-idp-button-disabled") || (d.addClass("kpr-idp-button-open"), o.data("kpr-idp-button-trigger", d).show(), e(), o.trigger("show", { kprIDPButton: o, trigger: d }))
+        } else if (d !== n.target && t(n.target).hasClass("direct-idp-button-ignore")) return
+        s(), r || d.hasClass("direct-idp-button-disabled") || (d.addClass("direct-idp-button-open"), o.data("direct-idp-button-trigger", d).show(), e(), o.trigger("show", { directIDPButton: o, trigger: d }))
     } 
     
     function s(i) {
         var s = i ? t(i.target).parents().addBack() : null
-        if (s && s.is(".kpr-idp-button")) {
-            if (!s.is(".kpr-idp-button-menu")) return
+        if (s && s.is(".direct-idp-button")) {
+            if (!s.is(".direct-idp-button-menu")) return
             if (!s.is("A")) return
         } 
-        t(document).find(".kpr-idp-button:visible").each(function () {
+        t(document).find(".direct-idp-button:visible").each(function () {
             var i = t(this)
-            i.hide().removeData("kpr-idp-button-trigger").trigger("hide", { kprIDPButton: i })
-        }), t(document).find(".kpr-idp-button-open").removeClass("kpr-idp-button-open")
+            i.hide().removeData("direct-idp-button-trigger").trigger("hide", { directIDPButton: i })
+        }), t(document).find(".direct-idp-button-open").removeClass("direct-idp-button-open")
     } 
     
     function e() {
-        var i = t(".kpr-idp-button:visible").eq(0), s = i.data("kpr-idp-button-trigger"), e = s ? parseInt(s.attr("data-horizontal-offset") || 0, 10) : null, n = s ? parseInt(s.attr("data-vertical-offset") || 0, 10) : null
-        0 !== i.length && s && (i.hasClass("kpr-idp-button-relative") ? i.css({ left: i.hasClass("kpr-idp-button-anchor-right") ? s.position().left - (i.outerWidth(!0) - s.outerWidth(!0)) - parseInt(s.css("margin-right"), 10) + e : s.position().left + parseInt(s.css("margin-left"), 10) + e, top: s.position().top + s.outerHeight(!0) - parseInt(s.css("margin-top"), 10) + n }) : i.css({ left: i.hasClass("kpr-idp-button-anchor-right") ? s.offset().left - (i.outerWidth() - s.outerWidth()) + e : s.offset().left + e, top: s.offset().top + s.outerHeight() + n }))
+        var i = t(".direct-idp-button:visible").eq(0), s = i.data("direct-idp-button-trigger"), e = s ? parseInt(s.attr("data-horizontal-offset") || 0, 10) : null, n = s ? parseInt(s.attr("data-vertical-offset") || 0, 10) : null
+        0 !== i.length && s && (i.hasClass("direct-idp-button-relative") ? i.css({ left: i.hasClass("direct-idp-button-anchor-right") ? s.position().left - (i.outerWidth(!0) - s.outerWidth(!0)) - parseInt(s.css("margin-right"), 10) + e : s.position().left + parseInt(s.css("margin-left"), 10) + e, top: s.position().top + s.outerHeight(!0) - parseInt(s.css("margin-top"), 10) + n }) : i.css({ left: i.hasClass("direct-idp-button-anchor-right") ? s.offset().left - (i.outerWidth() - s.outerWidth()) + e : s.offset().left + e, top: s.offset().top + s.outerHeight() + n }))
     } 
     
     t.extend(t.fn, {
-        kprIDPButton: function (e, n) {
+        directIDPButton: function (e, n) {
             switch (e) {
                 case "show": return i(null, t(this)), t(this)
                 case "hide": return s(), t(this)
-                case "attach": return t(this).attr("kpr-idp-button", n)
-                case "detach": return s(), t(this).removeAttr("kpr-idp-button")
-                case "disable": return t(this).addClass("kpr-idp-button-disabled")
-                case "enable": return s(), t(this).removeClass("kpr-idp-button-disabled")
+                case "attach": return t(this).attr("direct-idp-button", n)
+                case "detach": return s(), t(this).removeAttr("direct-idp-button")
+                case "disable": return t(this).addClass("direct-idp-button-disabled")
+                case "enable": return s(), t(this).removeClass("direct-idp-button-disabled")
             }
         }
-    }), t(document).on("click.kpr-idp-button", "[kpr-idp-button]", i), t(document).on("click.kpr-idp-button", s), t(window).on("resize", e)
+    }), t(document).on("click.direct-idp-button", "[direct-idp-button]", i), t(document).on("click.direct-idp-button", s), t(window).on("resize", e)
 }(jQuery)

@@ -131,22 +131,22 @@
                 class="badge square-corners mb-3 mr-2 ml-0 pr-10 p-2 mw-100"
                 style="font-size: 100%">
 
-                <a href="#" class="italia-it-button italia-it-button-size-m button-kpr"
-                    kpr-idp-button="#kpr-idp-button-medium-get">
+                <a href="#" class="italia-it-button italia-it-button-size-m button-direct"
+                    direct-idp-button="#direct-idp-button-medium-get">
                     <span class="italia-it-button-icon"><img
                             src="{% static 'svg/cie-ico-circle-bb.svg' %}"
                             alt="">
                     </span>
-                    <span class="italia-it-button-text">{% trans "Entra con kpr" %}</span>
+                    <span class="italia-it-button-text">{% trans "Entra con Direct" %}</span>
                 </a>
-                <div id="kpr-idp-button-medium-get"
-                    class="kpr-idp-button kpr-idp-button-tip kpr-idp-button-relative"
+                <div id="direct-idp-button-medium-get"
+                    class="direct-idp-button direct-idp-button-tip direct-idp-button-relative"
                     style="display: none; left: 56.5px; top: 46.05px;">
 
-                    <ul id="kpr-idp-list-medium-root-get" class="kpr-idp-button-menu" aria-labelledby="kpr-idp">
-                        {% for sub, attrs in kpr_providers.items %}
+                    <ul id="direct-idp-list-medium-root-get" class="direct-idp-button-menu" aria-labelledby="direct-idp">
+                        {% for sub, attrs in direct_providers.items %}
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email openid&idp_hint={{KPR_IDP_HINT}}" id="provider-kpr">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=direct&scope=openid profile email openid&idp_hint={{DIRECT_IDP_HINT}}" id="provider-direct">
                                         <span class="spid-sr-only">{{ attrs.organization_name }}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
@@ -157,7 +157,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=kpr&scope=openid profile email offline_access&idp_hint={{KPR_IDP_HINT}}" id="provider-kpr-refresh_token">
+                                    <a href="{% url 'spid_cie_rp_begin' %}?provider={{sub}}&profile=direct&scope=openid profile email offline_access&idp_hint={{DIRECT_IDP_HINT}}" id="provider-direct-refresh_token">
                                         <span class="spid-sr-only">{{ attrs.organization_name }} {% trans "INCLUDING REFRESH TOKEN" %}</span>
                                         {% if attrs.logo_uri %}
                                         <img src="{{ attrs.logo_uri }}" alt="{{ attrs.organization_name }}">
